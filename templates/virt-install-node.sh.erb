@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# Script to provision <%= @certname %> using virt-install as an
+# libvirt instance on the local host
+#
+# PLEASE REVIEW THE SETTINGS
+#
+cat "$0"
+read -p "Press any key to continue"
+
+#
+# Serve kickstart file
+#
+pgrep -f "python -m SimpleHTTPServer" | xargs --no-run-if-empty kill
+cd /var/www/html && python -m SimpleHTTPServer &
+
+#
+# Run virt-install to build (or rebuild) <loc>-foreman-1
+#
+virsh destroy <%= @certname %>
+virsh undefine <%= @certname %>
+virsh vol-delete --pool <%= @install_diskpool %> <%= @certname %>.img
+virsh pool-refresh <% @install_diskpool %>
+virt-install -v \
+  -n <%= @certname %> \
+  -r 4096 \
+  --vcpus 2 \
+  --autostart \
+  --os-variant=rhel7 \
+  --accelerate \
+  -w network=<%= @install_network %> \
+  --disk pool=<%= @install_diskpool %>,size=10 --force \
+  -l <%= scope.lookupvar('::foreman_bootstrap::mirror') %>/ \
+  --graphics vnc,listen=<%= @ipaddress %> --noautoconsole \
+  -x "ks=<%= @ks_url %> network ks.sendmac net.ifnames=0 \
+<% if @install_ip %>     ip=<%= @install_ip %> \
+     netmask=<%= @install_netmask %> \
+     gateway=<%= @install_gateway %> \
+     dns=8.8.8.8 \<% end %>
+     " &
+
