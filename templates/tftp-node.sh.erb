@@ -1,0 +1,26 @@
+#!/bin/bash
+
+cp -f /usr/share/syslinux/memdisk \
+ /usr/share/syslinux/menu.c32 \
+ /usr/share/syslinux/chain.c32 \
+ /usr/share/syslinux/pxelinux.0 \
+ /var/lib/tftpboot
+
+#
+# Get the installer initrd and kernel
+#
+curl -f -L -C - -o /var/lib/tftpboot/boot/initrd.img \
+  <%= @mirror %>/images/pxeboot/initrd.img
+curl -f -L -C - -o /var/lib/tftpboot/boot/vmlinuz \
+  <%= @mirror %>/images/pxeboot/vmlinuz
+
+#
+# Serve kickstart file
+#
+pgrep -f "python -m SimpleHTTPServer" | xargs --no-run-if-empty kill
+cd /var/www/html && python -m SimpleHTTPServer &
+
+dnsmasq -d --enable-tftp --tftp-root=/var/lib/tftpboot \
+  --dhcp-range=<%= @range_start %>,<%= @range_end %> \
+  --port=0 -z -i <%= @dhcp_interface %> \
+  --dhcp-lease-max=1 --dhcp-boot='pxelinux.0'
