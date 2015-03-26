@@ -37,6 +37,7 @@ cd /var/www/html && python -m SimpleHTTPServer &
 #
 dnsmasq -d --enable-tftp --tftp-root=/var/lib/tftpboot \
   --dhcp-range=<%= @range_start %>,<%= @range_end %> \
+  --dhcp-option=6,8.8.8.8 \
   --port=0 -z -i <%= @dhcp_if %> \
   --dhcp-lease-max=1 --dhcp-boot='pxelinux.0'
 
