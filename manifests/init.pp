@@ -12,11 +12,7 @@ class foreman_bootstrap(
     mode => '0644',
   }
 
-  file { ['/var/www',
-          '/var/www/html',
-          '/var/lib/tftpboot',
-          '/var/lib/tftpboot/boot',
-          '/var/lib/tftpboot/pxelinux.cfg']:
+  file { ['/var/www', '/var/www/html']:
     ensure => directory,
   }
 

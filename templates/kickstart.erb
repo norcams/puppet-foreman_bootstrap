@@ -2,16 +2,16 @@
 
 install
 unsupported_hardware
-url --url <%= @mirror %>
+url --url <%= scope.lookupvar('foreman_bootstrap::mirror') %>
 lang en_US.UTF-8
 selinux --permissive
-keyboard <%= @keyboard %>
+keyboard <%= scope.lookupvar('foreman_bootstrap::keyboard') %>
 skipx
 network --bootproto dhcp --hostname <%= @hostname %>
-rootpw --iscrypted <%= @rootpw %>
+rootpw --iscrypted <%= scope.lookupvar('foreman_bootstrap::rootpw') %>
 firewall --service=ssh
 authconfig --useshadow --passalgo=sha256 --kickstart
-timezone --utc <%= @timezone %>
+timezone --utc <%= scope.lookupvar('foreman_bootstrap::timezone') %>
 services --disabled gpm,sendmail,cups,pcmcia,isdn,rawdevices,hpoj,bluetooth,openibd,avahi-daemon,avahi-dnsconfd,hidd,hplip,pcscd
 
 
