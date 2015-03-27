@@ -30,7 +30,7 @@ virt-install -v \
   --accelerate \
   -w network=<%= @install_network %> \
   --disk pool=<%= @install_diskpool %>,size=10 --force \
-  -l <%= scope.lookupvar('::foreman_bootstrap::mirror') %>/ \
+  -l <%= scope.lookupvar('::foreman_bootstrap::mirror') %> \
   --graphics vnc,listen=<%= @ipaddress %> --noautoconsole \
   -x "ks=<%= @ks_url %> network ks.sendmac net.ifnames=0 \
 <% if @install_ip %>     ip=<%= @install_ip %> \
