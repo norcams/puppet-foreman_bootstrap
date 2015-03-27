@@ -4,7 +4,7 @@ define foreman_bootstrap::tftp_install (
   $certname         = $name,
   $hostname         = $name,
   $macaddress       = 'default',
-  $ks_url           = "http://${dhcp_ip}:8000/${name}.cfg",
+  $ks_url           = "http://${::ipaddress}:8000/${name}.cfg",
   $dhcp_interface   = 'eth1',
   $dhcp_range_start = '10.0.0.10',
   $dhcp_range_end   = '10.0.0.10',
