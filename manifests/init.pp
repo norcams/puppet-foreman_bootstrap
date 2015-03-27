@@ -1,9 +1,10 @@
 #
 class foreman_bootstrap(
-  $mirror   = $::foreman_bootstrap::params::mirror,
-  $timezone = $::foreman_bootstrap::params::timezone,
-  $keyboard = $::foreman_bootstrap::params::keyboard,
-  $rootpw   = $::foreman_bootstrap::params::rootpw,
+  $mirror     = $::foreman_bootstrap::params::mirror,
+  $timezone   = $::foreman_bootstrap::params::timezone,
+  $keyboard   = $::foreman_bootstrap::params::keyboard,
+  $rootpw     = $::foreman_bootstrap::params::rootpw,
+  $nameserver = $::foreman_bootstrap::params::nameserver,
 ) inherits foreman_bootstrap::params {
 
   File {
