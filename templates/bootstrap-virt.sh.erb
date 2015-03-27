@@ -36,6 +36,6 @@ virt-install -v \
 <% if @install_ip %>     ip=<%= @install_ip %> \
      netmask=<%= @install_netmask %> \
      gateway=<%= @install_gateway %> \
-     dns=8.8.8.8 \<% end %>
+     dns=<%= scope.lookupvar('::foreman_bootstrap::nameserver') %> \<% end %>
      " &
 
