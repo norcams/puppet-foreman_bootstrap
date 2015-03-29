@@ -1,6 +1,8 @@
 #
 class foreman_bootstrap::tftp_setup {
 
+  require foreman_bootstrap
+
   file { [
           '/var/lib/tftpboot',
           '/var/lib/tftpboot/boot',
