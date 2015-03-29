@@ -19,8 +19,8 @@ cd /var/www/html && python -m SimpleHTTPServer &
 #
 virsh destroy <%= @certname %>
 virsh undefine <%= @certname %>
-virsh vol-delete --pool <%= @install_diskpool %> <%= @certname %>.img
-virsh pool-refresh <% @install_diskpool %>
+virsh vol-delete --pool <%= @libvirt_pool %> <%= @certname %>.img
+virsh pool-refresh --pool <% @libvirt_pool %>
 virt-install -v \
   -n <%= @certname %> \
   -r 4096 \
@@ -28,8 +28,8 @@ virt-install -v \
   --autostart \
   --os-variant=rhel7 \
   --accelerate \
-  -w network=<%= @install_network %> \
-  --disk pool=<%= @install_diskpool %>,size=10 --force \
+  -w network=<%= @libvirt_network %> \
+  --disk pool=<%= @libvirt_pool %>,size=10 --force \
   -l <%= scope.lookupvar('::foreman_bootstrap::mirror') %> \
   --graphics vnc,listen=<%= @ipaddress %> --noautoconsole \
   -x "ks=<%= @ks_url %> network ks.sendmac net.ifnames=0 \
