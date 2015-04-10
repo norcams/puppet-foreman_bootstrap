@@ -20,6 +20,7 @@ cd /var/www/html && python -m SimpleHTTPServer &
 virsh destroy <%= @certname %>
 virsh undefine <%= @certname %>
 virsh vol-delete --pool <%= @libvirt_pool %> <%= @certname %>.img
+virsh vol-delete --pool <%= @libvirt_pool %> <%= @certname %>.qcow2
 virsh pool-refresh --pool <%= @libvirt_pool %>
 virt-install -v \
   -n <%= @certname %> \
