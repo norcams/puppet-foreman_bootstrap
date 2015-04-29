@@ -1,8 +1,9 @@
 #
 define foreman_bootstrap::tftp_install (
   $ensure           = 'present',
-  $certname         = $name,
-  $hostname         = $name,
+  $domain           = 'localdomain',
+  $certname         = "${name}.${domain}",
+  $hostname         = "${name}.${domain}",
   $macaddress       = 'default',
   $ks_url           = "http://${::ipaddress}:8000/${name}.cfg",
   $dhcp_interface   = 'eth1',
@@ -24,7 +25,7 @@ define foreman_bootstrap::tftp_install (
     content => template('foreman_bootstrap/kickstart.erb'),
   }
 
-  file { "/usr/local/sbin/bootstrap-${certname}.sh":
+  file { "/usr/local/sbin/bootstrap-${name}.sh":
     ensure  => $ensure,
     content => template('foreman_bootstrap/bootstrap-tftp.sh.erb'),
     mode    => '0755',
