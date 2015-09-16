@@ -1,5 +1,5 @@
 default linux
 label linux
 kernel boot/vmlinuz
-append initrd=boot/initrd.img ks=<%= @ks_url %> network ks.sendmac net.ifnames=0
+append initrd=boot/initrd.img ks=<%= @ks_url %> network ks.sendmac biosdevname=0 net.ifnames=0
 IPAPPEND 2
