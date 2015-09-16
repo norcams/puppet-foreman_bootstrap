@@ -39,6 +39,7 @@ ntp
 wget
 @Core
 epel-release
+-biosdevname
 
 puppet
 puppetlabs-release
@@ -70,7 +71,7 @@ echo "updating system time"
 # Override udev net-rules on el7
 mkdir -p /etc/udev/rules.d/60-net.rules
 # Add "net.ifnames=0"
-/usr/bin/sed -i -e 's/quiet/net.ifnames=0 quiet/' /etc/default/grub
+/usr/bin/sed -i -e 's/quiet/biosdevname=0 net.ifnames=0 quiet/' /etc/default/grub
 /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
 
 # **** Configure additional network interfaces as defined in "enable-addifs" parameter
