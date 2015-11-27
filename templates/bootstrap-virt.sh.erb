@@ -40,5 +40,6 @@ virt-install -v \
      netmask=<%= @install_netmask %> \
      gateway=<%= @install_gateway %> \
      dns=<%= scope.lookupvar('::foreman_bootstrap::nameserver') %> \<% end %>
+     console=ttyS0,115200 \
      " &
 
