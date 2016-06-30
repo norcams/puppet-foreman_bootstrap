@@ -5,6 +5,6 @@ class foreman_bootstrap::params {
   $timezone   = 'Europe/Oslo'
   $keyboard   = 'no'
   $rootpw     = '$1$de0ytuAp$9wuB2AJxYQrEM9Hxa4Ihp/'
-  $nameserver = '8.8.8.8'
-
+  $nameserver = '8.8.8.8',
+  $puppetrepo = 'https://github.com/norcams/himlar'
 }

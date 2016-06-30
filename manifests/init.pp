@@ -5,6 +5,7 @@ class foreman_bootstrap(
   $keyboard   = $::foreman_bootstrap::params::keyboard,
   $rootpw     = $::foreman_bootstrap::params::rootpw,
   $nameserver = $::foreman_bootstrap::params::nameserver,
+  $puppetrepo = $::foreman_bootstrap::params::puppetrepo
 ) inherits foreman_bootstrap::params {
 
   File {
